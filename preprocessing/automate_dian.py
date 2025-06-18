@@ -77,3 +77,17 @@ def preprocess_data(data, target_column, save_path, file_path, output_dir):
     pd.DataFrame(y_test).to_csv(f"{output_dir}/y_test.csv", index=False)
 
     return X_train, X_test, y_train, y_test
+
+if __name__ == "__main__":
+    # Baca data mentah
+    raw_data = pd.read_csv("data_raw.csv")
+
+    # Jalankan preprocessing
+    preprocess_data(
+        data=raw_data,
+        target_column="encoded_label", 
+        save_path="preprocessing/pipeline.joblib",
+        file_path="preprocessing/column_headers.csv",
+        output_dir="preprocessing/data_preprocessing"
+    )
+
