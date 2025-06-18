@@ -1,0 +1,35 @@
+name: Preprocessing Workflow
+
+on:
+  push:
+    paths:
+      - "preprocessing/automate_dian.py"
+      - "data_raw.csv"
+  workflow_dispatch:
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install pandas numpy scikit-learn joblib
+
+      - name: Run preprocessing script
+        run: |
+          python preprocessing/automate_dian.py
+
+      - name: Upload preprocessed datasets
+        uses: actions/upload-artifact@v4
+        with:
+          name: preprocessed-data
+          path: preprocessing/data_preprocessing/**
